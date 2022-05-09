@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Account;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
@@ -25,11 +27,13 @@ class RegisterController extends Controller
         # Account Number is generated
         # see boot method of the Account model.
         # success is confirmed and retried during login, see LoginController
-        Account::create([ 'user_id' => $user->id ]);
+        $account = Account::create([ 'user_id' => $user->id ]);
+        $account = !is_null($account) ? $account->account_number : null;
     
         return response()->json([
             'error' => false,
-            'message' => 'User successfully created!'
+            'message' => 'User successfully created!',
+            'data' => [ 'account_number' => $account ]
         ], 200);
     }
 

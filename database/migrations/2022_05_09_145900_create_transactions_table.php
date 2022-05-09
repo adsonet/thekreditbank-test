@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->foreignId('user_id');
             $table->bigInteger('to_user_id')->unsigned();  //foreign('to_user_id')->references('id')->on('users')->nullable();
-            $table->double('amount', 15, 8)->nullable();
+            $table->double('amount', 15, 8)->unsigned()->nullable();
             $table->text('detail');
             $table->timestamps();
         });

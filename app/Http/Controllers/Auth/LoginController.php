@@ -6,19 +6,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Account;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|string',
+            'email' => 'required|string|email',
             'password' => 'required|string'
         ]);
 
         $credentials = $request->only(['email', 'password']);
 
-        if (! Auth::attempt($credentials)) {
+        if ( ! Auth::attempt($credentials) ) {
             return response()->json(['message' => 'Invalid login details'], 401);
         }
     
@@ -42,7 +43,7 @@ class LoginController extends Controller
 
     /**
      * Only if both phone and email are allowed for login
-     * Get the login username as either phone or email.
+     * Get the username as either phone or email.
      * 
      * @param Request $request
      * @return string
@@ -53,7 +54,7 @@ class LoginController extends Controller
 
         $attribute = filter_var($username, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
 
-        $request->merge([$attribute => $login]);
+        $request->merge([$attribute => $username]);
 
         return $attribute;
     }

@@ -31,7 +31,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($request->id);
+        $user = User::findOrFail($id);
 
         return response()->json([
             'error' => false,
@@ -53,22 +53,24 @@ class UserController extends Controller
             'last_name' => 'required',
         ]);
 
-        $user = User::find($validated['id']);
+        $user = User::find($id);
         
         if( ! is_null($user) ) {
 
-            if( $user->update([$validated]) ) {
+            if( ! $user->update([$validated]) ) {
 
                 return response()->json([
-                    'error' => false,
-                    'data' => compact('user'),
-                ], 200);
+                    'error' => true,
+                    'message' => 'could not update user!',
+                ]);
             }
+
         }
-            
+        
         return response()->json([
-            'error' => true,
-            'message' => 'could not update user!',
+            'error' => false,
+            'message' => 'record updated !',
+            'data' => compact('user'),
         ], 200);
     }
 }

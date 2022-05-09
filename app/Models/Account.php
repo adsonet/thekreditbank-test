@@ -16,7 +16,7 @@ class Account extends Model
         # assign generated account number during create method
         static::creating(function($account) {
             $account->account_number = self::generateAccountNumber();
-        })
+        });
     }
 
      /**
