@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+# relative path based on file location instead of current working directory
+# see https://stackoverflow.com/questions/24112727/relative-paths-based-on-file-location-instead-of-current-working-directory
+parentPath=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+cd "$parentPath"
+cd ../
+
+# for sail commands i.e. sail {command}, see https://laravel.com/docs/8.x/sail
+# some commands were copied from https://gist.github.com/BenSampo/aa5f72584df79f679a7e603ace517c14
+
+# generate an env file if one does not exist
+if [ ! -f .env ]; then
+    cp .env.example .env
+fi
+
+
+# set the an alias for the Laravel sail command
+shopt -s expand_aliases # see https://www.thegeekdiary.com/how-to-make-alias-command-work-in-bash-script-or-bashrc-file/
+alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
+
+# start up the docker containers
+sail up -d
+
+# generate the application key
+# sail artisan key:generate --ansi
+
+# Run database migrations
+# sail artisan migrate --force
+
+# Clear caches
+# sail artisan cache:clear
+
+# Clear expired password reset tokens
+# sail artisan auth:clear-resets
+
+# Clear and cache routes
+# sail artisan route:clear
+
+# Clear and cache config
+# sail artisan config:clear
+
+# Clear and cache views
+# sail artisan view:clear
+
+# Install node modules
+# npm install
+
+# Build assets using Laravel Mix
+# npm run dev
+
+# Populate the database
+# sail artisan db:seed --class=LocalDevelopmentSeeder

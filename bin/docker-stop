@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# set the an alias for the Laravel sail command
+shopt -s expand_aliases # see https://www.thegeekdiary.com/how-to-make-alias-command-work-in-bash-script-or-bashrc-file/
+alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
+
+# stop the docker containers
+sail down
