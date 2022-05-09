@@ -28,8 +28,8 @@ class LoginController extends Controller
     
         $token = $user->createToken('authToken')->plainTextToken;
 
-        # if has no account details, create
-        # see the boot method of Account model for account_number generation
+        # if has no account details, create it
+        # see the booted method of Account model for account_number generation
         if( ! Account::where('user_id', $user->id)->exists() ) {
             Account::create([ 'user_id' => $user->id ]);
         };

@@ -11,7 +11,7 @@ class Account extends Model
 
     protected static function booted()
     {
-        parent::boot();
+        parent::booted();
 
         # assign generated account number during create method
         static::creating(function($account) {
@@ -36,12 +36,12 @@ class Account extends Model
             mt_srand(time()); 
             $number = mt_rand(1000000000, 9999999999);
 
-        } while ( $this->numberExists($number) );
+        } while ( self::numberExists($number) );
   
         return $number;
     }
 
-    private function numberExists($number) 
+    private static function numberExists($number) 
     {
         return self::where('account_number', $number)->exists();
     }
