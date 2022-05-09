@@ -21,11 +21,13 @@ Route::get('clear-cache', function() {
     Artisan::call('optimize:clear');
 });
 
+/** Public route */
 Route::post('login', [ RegisterController::class, 'login' ]);
 Route::post('register', [ RegisterController::class, 'register' ]);
 
-
+/** Protected Route */
 Route::middleware('auth:sanctum')->group( function () {
+
     /** users */
     Route::get('users', [UserController::class, 'index']);
     Route::get('user/{id}', [UserController::class, 'show']);
@@ -36,5 +38,6 @@ Route::middleware('auth:sanctum')->group( function () {
 
     /** transaction */
     Route::post('fund/send', [TransactionController::class, 'send']);
+
 });
 
