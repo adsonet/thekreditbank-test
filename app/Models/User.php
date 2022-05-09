@@ -48,7 +48,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get all credit with to_user_id field
+     * Get all credit transactions using to_user_id field
      */
     public function creditTransactions(): HasMany
     {
@@ -56,7 +56,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all debit transactions for user_id
+     * Get all debit transactions using user_id
      */
     public function debitTransactions(): HasMany
     {
