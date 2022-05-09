@@ -23,8 +23,8 @@ class RegisterController extends Controller
         }
 
         # Account Number is generated
-        # see boot method of the Account model
-        # will be checked and retried during login
+        # see boot method of the Account model.
+        # success is confirmed and retried during login, see LoginController
         Account::create([ 'user_id' => $user->id ]);
     
         return response()->json([

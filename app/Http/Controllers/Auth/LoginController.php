@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Account;
 
 class LoginController extends Controller
 {
@@ -25,7 +27,8 @@ class LoginController extends Controller
     
         $token = $user->createToken('authToken')->plainTextToken;
 
-        /** if has no account details, create */
+        # if has no account details, create
+        # see the boot method of Account model for account_number generation
         if( ! Account::where('user_id', $user->id)->exists() ) {
             Account::create([ 'user_id' => $user->id ]);
         };
@@ -33,12 +36,14 @@ class LoginController extends Controller
         return response()->json([
                 'access_token' => $token,
                 'token_type' => 'Bearer',
-            ]);
+                'message' => 'Login was successful!'
+            ], 200);
     }
 
     /**
-     * Get the login username using phone or email.
-     * only if both are allowed for login
+     * Only if both phone and email are allowed for login
+     * Get the login username as either phone or email.
+     * 
      * @param Request $request
      * @return string
      */
@@ -46,7 +51,7 @@ class LoginController extends Controller
     {
         $username = $request->input('username');
 
-        $attribute = filter_var($username, FILTER_VALIDATE_EMAIL) ? 'email' : 'phoneno';
+        $attribute = filter_var($username, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
 
         $request->merge([$attribute => $login]);
 

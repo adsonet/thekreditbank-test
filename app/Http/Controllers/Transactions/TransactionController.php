@@ -37,9 +37,9 @@ class TransactionController extends Controller
         $balance = $user->balance();
         
         response()->json([
-            'error' => true,
+            'error' => false,
             'message' => 'successful!',
-            'balance' => $balance
+            'data' => compact('balance')
         ]);
 
     }

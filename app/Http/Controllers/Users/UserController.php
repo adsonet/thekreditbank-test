@@ -19,7 +19,7 @@ class UserController extends Controller
 
         return response()->json([
             'error' => false,
-            'data' => $user,
+            'data' => compact('user'),
         ], 200);
     }
 
@@ -35,7 +35,7 @@ class UserController extends Controller
 
         return response()->json([
             'error' => false,
-            'data' => $user,
+            'data' => compact('user'),
         ], 200);
     }
 
@@ -61,14 +61,14 @@ class UserController extends Controller
 
                 return response()->json([
                     'error' => false,
-                    'data' => $user,
+                    'data' => compact('user'),
                 ], 200);
             }
         }
             
         return response()->json([
             'error' => true,
-            'message' => 'could not update user',
+            'message' => 'could not update user!',
         ], 200);
     }
 }
