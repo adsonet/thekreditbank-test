@@ -31,13 +31,15 @@ class LoginController extends Controller
         # if has no account details, create it
         # see the booted method of Account model for account_number generation
         if( ! Account::where('user_id', $user->id)->exists() ) {
-            Account::create([ 'user_id' => $user->id ]);
+            $account = Account::create([ 'user_id' => $user->id ]);
+            $account = !is_null($account) ? $account->account_number : null;
         };
     
         return response()->json([
                 'access_token' => $token,
                 'token_type' => 'Bearer',
-                'message' => 'Login was successful!'
+                'message' => 'Login was successful!',
+                'data' => [ 'account_number' => $account ?? '' ]
             ], 200);
     }
 
