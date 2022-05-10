@@ -30,7 +30,7 @@ class Account extends Model
         'book_balance'
     ];
 
-    protected static function generateNumber(): int
+    protected static function generateAccountNumber(): int
     {
         do {
 

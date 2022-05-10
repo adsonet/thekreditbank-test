@@ -42,9 +42,9 @@ class RegisterController extends Controller
         return $request->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'phone' => 'required|string|min:11|max:14',
+            'phone' => 'required|string|min:8|max:14',
             'email' => 'required|string|email|unique:users',
-            'password' => 'required|confirmed|min:4'
+            'password' => 'required|min:4'
         ]);
     }
 }

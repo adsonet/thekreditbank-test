@@ -23,7 +23,7 @@ Route::get('clear-cache', function() {
 });
 
 /** Public route */
-Route::post('login', [ RegisterController::class, 'login' ]);
+Route::post('login', [ LoginController::class, 'login' ]);
 Route::post('register', [ RegisterController::class, 'register' ]);
 
 /** Protected Route */
