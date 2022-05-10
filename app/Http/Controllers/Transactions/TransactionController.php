@@ -26,7 +26,7 @@ class TransactionController extends Controller
         $user = User::find(auth()->user()->id);
 
         $transaction = Transaction::create([
-            'from_user_id' => $user->id,
+            'user_id' => $user->id,
             'to_user_id' => $validated['to_user_id'],
             'amount' => $this->floatValue( $validated['amount'] ),
             'details' => 'references that user A transfer to User B'

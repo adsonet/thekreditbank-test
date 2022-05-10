@@ -57,20 +57,19 @@ class UserController extends Controller
         
         if( ! is_null($user) ) {
 
-            if( ! $user->update([$validated]) ) {
-
+            if( $user->update([$validated]) ) {
                 return response()->json([
-                    'error' => true,
-                    'message' => 'could not update user!',
-                ]);
+                    'error' => false,
+                    'message' => 'record updated !',
+                    'data' => compact('user'),
+                ], 200);
             }
 
         }
         
         return response()->json([
-            'error' => false,
-            'message' => 'record updated !',
-            'data' => compact('user'),
-        ], 200);
+            'error' => true,
+            'message' => 'could not update user!',
+        ]);
     }
 }
